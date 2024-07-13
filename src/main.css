@@ -1,0 +1,36 @@
+header,
+main {
+    width: 70%;
+    margin: auto;
+}
+
+#game-text {
+    color: grey;
+    font-size: 24px;
+}
+
+#game-text letter {
+    position: relative;
+}
+
+.active {
+    color: black;
+}
+
+#cursor {
+    width: 1.3px;
+    height: 28.6px;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+}
+
+body {
+    font-family: monospace;
+}
+
+.hidden {
+    display: none;
+}
