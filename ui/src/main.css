@@ -17,6 +17,10 @@ main {
     color: black;
 }
 
+.wrong {
+  color: red;
+}
+
 #cursor {
     width: 1.3px;
     height: 28.6px;
@@ -34,3 +38,4 @@ body {
 .hidden {
     display: none;
 }
+
