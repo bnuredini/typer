@@ -13,6 +13,24 @@ Useful for learning touch typing to type faster and for trying out your new keyb
 
 ![screenshot2](./docs/imgs/screenshot2.png)
 
+## Trying it out 
+
+### Online 
+
+The game is hosted with GitHub pages, try it out at https://bnuredini.github.io/typer.
+
+### Running locally
+
+Run the small Go server using 
+
+```
+cd backend
+go build 
+./typer
+```
+
+then go to http://localhost:8080.
+
 ## License
 
 See the [license file](./LICENSE).
