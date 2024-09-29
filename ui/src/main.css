@@ -4,6 +4,10 @@ main {
     margin: auto;
 }
 
+body {
+    font-family: monospace;
+}
+
 #game-text {
     color: grey;
     font-size: 24px;
@@ -11,14 +15,6 @@ main {
 
 #game-text letter {
     position: relative;
-}
-
-.active {
-    color: black;
-}
-
-.wrong {
-  color: red;
 }
 
 #cursor {
@@ -31,8 +27,12 @@ main {
     left: -1px;
 }
 
-body {
-    font-family: monospace;
+.active {
+    color: black;
+}
+
+.wrong {
+  color: red;
 }
 
 .hidden {

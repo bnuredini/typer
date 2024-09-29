@@ -1,19 +1,20 @@
-import {randomText} from "./words.js";
+import { randomText } from "./words.js";
 
-const gameTextElems = document.getElementById("game-text");
+const tmpWordCnt = document.getElementById("word-cnt");
+const gameTextElem = document.getElementById("game-text");
 const text = randomText(120);
 
 text.split("").forEach((ch) => {
   const letterElem = document.createElement("letter");
   letterElem.appendChild(document.createTextNode(ch));
-  gameTextElems.appendChild(letterElem);
+  gameTextElem.appendChild(letterElem);
 });
 
 const cursorElem = document.createElement("div");
 cursorElem.id = "cursor";
-gameTextElems.children[0].appendChild(cursorElem);
+gameTextElem.children[0].appendChild(cursorElem);
 
-let idx = 0;
+let idx = 0; // index of the next expected character
 let wordCnt = 0;
 let gameActive = false;
 let gameFinished = false;
@@ -28,26 +29,22 @@ document.addEventListener("keydown", (e) => {
     gameActive = true;
   }
 
-  if (e.key == "=") {
-    restartGame();
-    return;
-  }
-
-  if (idx >= gameTextElems.children.length || gameFinished) {
+  if (idx >= gameTextElem.children.length || gameFinished) {
     return;
   }
 
   if (e.key == text[idx]) {
-    gameTextElems.children[idx].classList.add("active");
+    gameTextElem.children[idx].classList.add("active");
 
     if (idx + 1 < text.length) {
-      gameTextElems.children[idx + 1].appendChild(cursorElem);
+      gameTextElem.children[idx + 1].appendChild(cursorElem);
     } else {
-      gameTextElems.children[idx].removeChild(cursorElem);
+      gameTextElem.children[idx].removeChild(cursorElem);
     }
 
-    if ((idx + 1) >= gameTextElems.children.length) {
+    if (idx + 1 >= gameTextElem.children.length) {
       wordCnt++;
+      tmpWordCnt.innerText = wordCnt;
       idx++;
       finishGame();
       return;
@@ -55,29 +52,32 @@ document.addEventListener("keydown", (e) => {
 
     if (text[idx + 1] == " " && isCurrWordValid(idx)) {
       wordCnt++;
-    } 
+      tmpWordCnt.innerText = wordCnt;
+    }
 
     idx++;
   } else if (e.key == "Backspace" || e.keyCode == 8) {
     if (idx > 0) {
       idx--;
 
-      // don't try to remove cursor if this is the last character
-      if (idx < gameTextElems.children.length - 1) {
-        gameTextElems.children[idx + 1].removeChild(cursorElem);
+      // remove cursor if this isn't the last character
+      if (idx < gameTextElem.children.length - 1) {
+        gameTextElem.children[idx + 1].removeChild(cursorElem);
       }
 
       if (text[idx + 1] == " " && isCurrWordValid(idx)) {
         wordCnt--;
+        console.log(`id: ${idx} text[idx+1]: ${text[idx + 1]}`);
+        tmpWordCnt.innerText = wordCnt;
       }
 
-      gameTextElems.children[idx].appendChild(cursorElem);
-      gameTextElems.children[idx].classList.remove("active");
-      gameTextElems.children[idx].classList.remove("wrong");
+      gameTextElem.children[idx].appendChild(cursorElem);
+      gameTextElem.children[idx].classList.remove("active");
+      gameTextElem.children[idx].classList.remove("wrong");
     }
   } else {
-    gameTextElems.children[idx].classList.add("wrong")
-    gameTextElems.children[idx + 1].appendChild(cursorElem)
+    gameTextElem.children[idx].classList.add("wrong");
+    gameTextElem.children[idx + 1].appendChild(cursorElem);
     idx++;
   }
 });
@@ -123,51 +123,39 @@ function finishGame() {
   document.getElementById("word-count").innerHTML = "Words: " + wordCnt;
 }
 
-function restartGame() {
-  gameActive = false;
-  gameFinished = false;
-  clearInterval(timerInterval); // not good
-  idx = 0;
-  for (let child of gameTextElems.children) {
-    child.classList.remove("active");
-  }
-
-  gameTextElems.children[0].appendChild(cursorElem);
-}
-
 function toWpm(wordCnt, timeInMillis) {
   const mins = timeInMillis / (60 * 1000);
   return wordCnt / mins;
 }
 
 /**
-  * Given the last letter index, `lastIdx`, this returns a boolean indicating
-  * whether the inputs of the word associated with this letter index are all
-  * valid up until this letter.
-  *
-  * @param {number} lastIdx
-  * @param {boolean}
-  */
+ * Given the last letter index, `lastIdx`, this returns a boolean indicating
+ * whether the inputs of the word associated with this letter index are all
+ * valid up until this letter.
+ *
+ * @param {number} lastIdx
+ * @param {boolean}
+ */
 function isCurrWordValid(lastIdx) {
-  if (lastIdx < 0 || lastIdx >= gameTextElems.children.length) {
+  if (lastIdx < 0 || lastIdx >= gameTextElem.children.length) {
     return false;
   }
 
-  if (gameTextElems.children[lastIdx].innerText == "") {
+  if (gameTextElem.children[lastIdx].innerText == "") {
     return false;
   }
 
-  for (let scanIdx = lastIdx - 1; scanIdx >= 0; scanIdx--) {
-    let chElem = gameTextElems.children[scanIdx];
+  for (let scanIdx = lastIdx; scanIdx >= 0; scanIdx--) {
+    let chElem = gameTextElem.children[scanIdx];
 
     if (chElem.innerText == " ") {
       return true;
     }
 
-    if (chElem.classList.contains('wrong')) {
+    if (chElem.classList.contains("wrong")) {
       return false;
     }
   }
-  
+
   return true;
 }
