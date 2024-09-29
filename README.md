@@ -17,11 +17,12 @@ Useful for learning touch typing to type faster and for trying out your new keyb
 
 ### Online 
 
-The game is hosted with GitHub pages, try it out at https://bnuredini.github.io/typer.
+This game is hosted via GitHub pages, try it out at https://bnuredini.github.io/typer.
 
 ### Running locally
 
-Run the small Go server using 
+There's a small web server program written in Go that serves files from `ui/`. Build and run the
+server application by running
 
 ```
 cd backend
