@@ -3,6 +3,7 @@
     <head>
         <title>Typer</title>
         <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="utility.css" />
     </head>
     <body>
         <header>
@@ -10,7 +11,23 @@
         </header>
 
         <main>
-            <div id="timer"></div>
+            <div class="flex gap-1rem mb-1rem">
+                <div
+                    value="30000"
+                    id="active-time-setter"
+                    class="time-setter btn"
+                >
+                    0:30
+                </div>
+                <div value="60000" class="time-setter btn">1:00</div>
+                <div value="90000" class="time-setter btn">1:30</div>
+                <div value="120000" class="time-setter btn">2:00</div>
+            </div>
+
+            <div class="flex gap-2px">
+                <span>Timer: </span>
+                <div id="timer"></div>
+            </div>
             <div>
                 Word count:
                 <span id="word-cnt">0</span>

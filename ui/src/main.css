@@ -35,7 +35,18 @@ body {
   color: red;
 }
 
-.hidden {
-    display: none;
+.wrong-whitespace {
+  background-color: red;
 }
 
+#active-time-setter {
+  color: black;
+}
+
+.time-setter {
+  color: grey;
+}
+
+.time-setter:hover {
+  cursor: pointer;
+}
