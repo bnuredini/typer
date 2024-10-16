@@ -1,3 +1,30 @@
+:root {
+    --bg-color: #fff;
+    --main-color: #fff;
+    --cursor-color: black;
+    --sub-color: #f0f0f0;
+    --sub-alt-color: #ffffff;
+    --text-color: black;
+    --inactive-text-color: grey;
+    --active-text-color: black;
+    --error-color: red;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.btn {
+    padding: 0.5rem;
+    background-color: var(--sub-color);
+}
+
+.btn:hover {
+    cursor: pointer;
+    color: black;
+}
+
 header,
 main {
     width: 70%;
@@ -9,7 +36,7 @@ body {
 }
 
 #game-text {
-    color: grey;
+    color: var(--inactive-text-color);
     font-size: 24px;
 }
 
@@ -20,7 +47,7 @@ body {
 #cursor {
     width: 1.3px;
     height: 28.6px;
-    background-color: black;
+    background-color: var(--cursor-color);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -28,25 +55,25 @@ body {
 }
 
 .active {
-    color: black;
+    color: var(--active-text-color);
 }
 
 .wrong {
-  color: red;
+    color: var(--error-color);
 }
 
 .wrong-whitespace {
-  background-color: red;
-}
-
-#active-time-setter {
-  color: black;
+    background-color: var(--error-color);
 }
 
 .time-setter {
-  color: grey;
+    color: var(--inactive-text-color);
 }
 
 .time-setter:hover {
-  cursor: pointer;
+    cursor: pointer;
+}
+
+#active-time-setter {
+    color: var(--text-color);
 }

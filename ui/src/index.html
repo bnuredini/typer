@@ -3,7 +3,7 @@
     <head>
         <title>Typer</title>
         <link rel="stylesheet" href="main.css" />
-        <link rel="stylesheet" href="utility.css" />
+        <link rel="stylesheet" href="util.css" />
         <link rel="icon" href="favicon.ico" />
     </head>
     <body>
@@ -12,7 +12,7 @@
         </header>
 
         <main>
-            <div class="flex gap-1rem mb-1rem">
+            <div class="text flex gap-1rem mb-1rem">
                 <div
                     value="30000"
                     id="active-time-setter"
@@ -23,8 +23,10 @@
                 <div value="60000" class="time-setter btn">1:00</div>
                 <div value="90000" class="time-setter btn">1:30</div>
                 <div value="120000" class="time-setter btn">2:00</div>
-            </div>
 
+                <div id="reset-btn" class="btn">Reset</div>
+                <div id="change-theme-btn" class="btn">Change theme</div>
+            </div>
             <div class="flex gap-2px">
                 <span>Timer: </span>
                 <div id="timer"></div>
@@ -43,5 +45,10 @@
 
         <script src="index.js" type="module"></script>
         <script src="words.js" type="module"></script>
+
+        <!-- <script src="main.js" type="module"></script> -->
+        <!-- <script src="game.js" type="module"></script> -->
+        <!-- <script src="util.js" type="module"></script> -->
+        <!-- <script src="words.js" type="module"></script> -->
     </body>
 </html>
