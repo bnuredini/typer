@@ -27,6 +27,13 @@ document.getElementById("reset-btn").addEventListener("click", (e) => {
   init();
 });
 
+document.addEventListener("keydown", (e) => {
+  if (e.key == "Tab") {
+    e.preventDefault();
+    init();
+  }
+});
+
 let darkMode = false;
 document.getElementById("change-theme-btn").addEventListener("click", (e) => {
   const root = document.querySelector(":root");
@@ -46,13 +53,6 @@ document.getElementById("change-theme-btn").addEventListener("click", (e) => {
  }
 
   darkMode = !darkMode;
-});
-
-document.addEventListener("keydown", (e) => {
-  if (e.key == "Tab") {
-    e.preventDefault();
-    init();
-  }
 });
 
 function init() {
