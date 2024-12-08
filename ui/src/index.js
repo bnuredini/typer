@@ -3,14 +3,17 @@ import { toMinsAndSecs, toWpm, isCurrWordValid } from "./util.js";
 
 let gameActive = false; 
 let gameFinished = false;
-let currTimerInterval;
+
 let text;
-let expectedLetterIdx = 0;
 let wordCnt = 0;
+let currTimerInterval;
+let expectedLetterIdx = 0;
 
 let wordCntElem = document.getElementById("word-cnt");
 let gameTextElem = document.getElementById("game-text");
 let cursorElem = document.createElement("div");
+
+let darkMode = false;
 
 init();
 
@@ -23,6 +26,7 @@ document.querySelectorAll(".time-setter").forEach((elem) => {
   });
 });
 
+
 document.getElementById("reset-btn").addEventListener("click", (e) => {
   init();
 });
@@ -34,10 +38,11 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-let darkMode = false;
 document.getElementById("change-theme-btn").addEventListener("click", (e) => {
   const root = document.querySelector(":root");
 
+  // TODO: set these colors in a CSS file. It makes more sense for style-releated values to be
+  // defined there. 
   if (!darkMode) {
     root.style.setProperty("--bg-color", "black");
     root.style.setProperty("--text-color", "white");
@@ -209,7 +214,7 @@ function startTimer(initialTimeMs, shouldStopFn, onFinishFn) {
   const timerInterval = setInterval(
     () => {
       if (timeMs <= 0 || shouldStopFn()) {
-        return;
+        return; // TODO: should we stop the timer here?
       }
 
       timeMs -= 1000;
@@ -227,67 +232,6 @@ function startTimer(initialTimeMs, shouldStopFn, onFinishFn) {
 
   return timerInterval;
 }
-
-// /**
-//  * Given a certain amount of milliseconds, this convert those milliseconds to
-//  * the minutes:seconds format, where the seconds bit is repended with a zero
-//  * (i.e., a "0" character) if the number of seconds is single digit number.
-//  *
-//  * @param {numer} timeMs - a number in millis
-//  * @returns {string}
-//  */
-// function toMinsAndSecs(timeMs) {
-//   const mins = Math.floor(timeMs / (60 * 1000));
-//   const secs = (timeMs - mins * 60 * 1000) / 1000;
-
-//   if (secs < 10) return mins + ":0" + secs;
-//   else return mins + ":" + secs;
-// }
-
-// /**
-//  * Given `wordCnt` words typed in `timeMs`, this outputs the average number of
-//  * words per written minute.
-//  *
-//  * @param {number} wordCnt
-//  * @param {number} timeMs
-//  * @return {number}
-//  */
-// function toWpm(wordCnt, timeMs) {
-//   const mins = timeMs / (60 * 1000);
-//   return wordCnt / mins;
-// }
-
-// /**
-//  * Given the last letter index, `lastIdx`, this returns a boolean indicating
-//  * whether the inputs of the word associated with this letter index are all
-//  * valid up until this letter.
-//  *
-//  * @param {number} lastIdx
-//  * @returns {boolean}
-//  */
-// function isCurrWordValid(lastIdx, gameTextElem) {
-//   if (lastIdx < 0 || lastIdx >= gameTextElem.children.length) {
-//     return false;
-//   }
-
-//   if (gameTextElem.children[lastIdx].innerText == "") {
-//     return false;
-//   }
-
-//   for (let scanIdx = lastIdx; scanIdx >= 0; scanIdx--) {
-//     let chElem = gameTextElem.children[scanIdx];
-
-//     if (chElem.innerText == " ") {
-//       return true;
-//     }
-
-//     if (chElem.classList.contains("wrong")) {
-//       return false;
-//     }
-//   }
-
-//   return true;
-// }
 
 function finishGame(timeElapsed) {
   gameFinished = true;
